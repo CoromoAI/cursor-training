@@ -1,0 +1,49 @@
+---
+alwaysApply: true
+---
+
+# ECサイト「ShopEasy」開発ルール
+
+## プロジェクト情報
+- プロジェクト名: ECサイト「ShopEasy」
+- 開発言語: JavaScript (ES6+)
+- フレームワーク: なし（Vanilla JS）
+
+## ディレクトリ構造
+/cursor-training/case7/ 
+├── index.html (商品一覧ページ) 
+├── style.css (スタイルシート) 
+└── app.js (JavaScriptファイル)
+
+## コーディング規約
+- ES6+の機能を積極的に使用
+- 非同期処理はasync/awaitを使用
+- データはlocalStorageに保存
+- 価格は税込みで表示（税率10%）
+- セミコロンは必須
+- constとletを使用（varは禁止）
+
+## デザイン規約
+- プライマリカラー: #2563eb
+- セカンダリカラー: #f59e0b
+- フォント: 'Noto Sans JP'
+- ブレークポイント: 768px (タブレット), 1024px (デスクトップ)
+
+## 商品データ構造
+必ず以下の構造に従ってください：
+```javascript
+{
+  id: string,
+  name: string,
+  price: number, // 税抜き価格
+  image: string,
+  description: string,
+  stock: number
+}
+```
+```
+## 必須実装
+- エラーハンドリングを必ず含める
+- レスポンシブ対応は必須
+- アクセシビリティ（ARIA属性）を考慮
+- 日本語でのコメント記述

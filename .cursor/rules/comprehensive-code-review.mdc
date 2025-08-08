@@ -1,0 +1,215 @@
+---
+description: タイプミス、関数名・ファイル名、例外処理の観点を包括したコードレビューガイドライン
+---
+
+# 包括的コードレビューガイドライン
+
+このルールは、タイプミス、関数名・ファイル名の命名規約、例外処理の3つの観点を統合したコードレビューを実施するためのガイドラインです。
+
+## 🔍 レビュー対象ファイル
+
+### 主要チェック対象
+- [app.js](mdc:case7/app.js) - メインJavaScriptファイル
+- [index.html](mdc:case7/index.html) - HTMLファイル
+- [style.css](mdc:case7/style.css) - CSSファイル
+- 各caseディレクトリ内のファイル
+
+## 1. 📝 タイプミス・スペルチェック
+
+### チェックポイント
+- **変数名・関数名**: CamelCase記法の正確性
+- **文字列リテラル**: 日本語メッセージの誤字脱字
+- **コメント**: 日本語コメントの表記統一
+- **HTML属性**: `aria-label`, `alt`属性の正確性
+- **CSS クラス名**: BEM記法の一貫性
+
+### 具体的チェック項目
+```javascript
+// ✅ 良い例
+const cartManager = new CartManager();
+const productCard = createProductCard(product);
+
+// ❌ 悪い例 - タイプミス
+const cartManger = new CartManger(); // Manager のスペルミス
+const prodctCard = createProductCard(product); // Product のスペルミス
+```
+
+### 日本語表記統一
+- 「カート」「かーと」の統一
+- 「商品」「しょうひん」の統一
+- 敬語表現の一貫性（「ください」「下さい」）
+
+## 2. 🏷️ 命名規約レビュー
+
+### ファイル名規約
+- **JavaScript**: `camelCase.js` または `kebab-case.js`
+- **CSS**: `kebab-case.css`
+- **HTML**: `kebab-case.html`
+
+### 関数名規約
+```javascript
+// ✅ 推奨パターン
+function createProductCard(product) {}    // 動詞 + 名詞
+async function loadProducts() {}          // 動詞（非同期）
+function updateCartDisplay() {}           // 動詞 + 名詞
+
+// ❌ 避けるべきパターン
+function product() {}                     // 動詞なし
+function data() {}                       // 抽象的すぎる
+function doSomething() {}                // 具体性なし
+```
+
+### 変数名規約
+```javascript
+// ✅ 推奨パターン
+const isLoading = true;                  // boolean: is/has/can + 形容詞
+const hasError = false;
+const productList = [];                  // 配列: 複数形または〜List
+const cartItems = [];
+
+// ❌ 避けるべきパターン
+const loading = true;                    // boolean判別困難
+const error = false;                     // 型が不明確
+const product = [];                      // 単数形だが配列
+```
+
+### CSS クラス名規約（BEM）
+```css
+/* ✅ 正しいBEM記法 */
+.product-card {}                         /* Block */
+.product-card__image {}                  /* Element */
+.product-card__image--large {}           /* Modifier */
+
+/* ❌ 不正確な記法 */
+.productCard {}                          /* CamelCaseは非推奨 */
+.product-card-image {}                   /* Element区切りが不正確 */
+```
+
+## 3. ⚠️ 例外処理・エラーハンドリング
+
+### 必須実装パターン
+
+#### try-catch文の適切な使用
+```javascript
+// ✅ 推奨パターン
+async function loadProducts() {
+    try {
+        // 処理内容
+        const response = await fetch('/api/products');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('商品データの読み込みエラー:', error);
+        showErrorMessage('商品の読み込みに失敗しました');
+        throw error; // 必要に応じて再スロー
+    }
+}
+```
+
+#### localStorage操作の例外処理
+```javascript
+// ✅ 推奨パターン
+function saveToStorage(key, data) {
+    try {
+        localStorage.setItem(key, JSON.stringify(data));
+        return true;
+    } catch (error) {
+        console.error('ストレージ保存エラー:', error);
+        if (error.name === 'QuotaExceededError') {
+            showErrorMessage('ストレージ容量が不足しています');
+        }
+        return false;
+    }
+}
+```
+
+#### DOM操作の安全性チェック
+```javascript
+// ✅ 推奨パターン
+function updateElement(elementId, content) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.warn(`要素が見つかりません: ${elementId}`);
+        return false;
+    }
+    element.textContent = content;
+    return true;
+}
+```
+
+### グローバルエラーハンドリング
+```javascript
+// ✅ 必須実装
+window.addEventListener('error', (event) => {
+    console.error('グローバルエラー:', event.error);
+    // エラー報告やフォールバック処理
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('未処理のPromise rejection:', event.reason);
+    event.preventDefault();
+});
+```
+
+## 4. 🎯 統合チェックリスト
+
+### 基本品質チェック
+- [ ] スペルミス・タイプミスがない
+- [ ] 関数名が動詞で始まり、目的が明確
+- [ ] 変数名が型と用途を適切に表現
+- [ ] ファイル名が命名規約に準拠
+- [ ] CSS クラス名がBEM記法に従っている
+
+### エラーハンドリングチェック
+- [ ] 非同期処理にtry-catch文が実装されている
+- [ ] localStorage操作が安全に処理されている
+- [ ] DOM操作前に要素の存在確認を行っている
+- [ ] ユーザーに分かりやすいエラーメッセージを表示
+- [ ] グローバルエラーハンドラーが設定されている
+
+### プロジェクト固有チェック
+- [ ] 商品データ構造が規約に準拠している
+- [ ] 税込み価格計算が正確（税率10%）
+- [ ] アクセシビリティ（ARIA属性）が適切に設定
+- [ ] レスポンシブデザインが正しく実装されている
+- [ ] 日本語コメントが適切に記述されている
+
+## 5. 🚨 重要度別チェック
+
+### 🔴 Critical（修正必須）
+- セキュリティに関わるタイプミス
+- 機能を破綻させる関数名の誤り
+- エラーハンドリングの完全な欠如
+- データ破損の可能性がある処理
+
+### 🟡 Warning（推奨修正）
+- 命名規約への軽微な違反
+- console.errorの代わりにconsole.logを使用
+- 一部の例外処理が不十分
+- コメントの表記揺れ
+
+### 🔵 Info（改善提案）
+- より分かりやすい変数名の提案
+- コードの可読性向上
+- パフォーマンス最適化の余地
+
+## 6. 📋 レビュー実施手順
+
+1. **事前準備**: コードの全体的な構造を把握
+2. **スペルチェック**: IDE/エディタのスペルチェック機能を活用
+3. **命名チェック**: 関数・変数・ファイル名の一貫性を確認
+4. **例外処理チェック**: try-catch文の適切な実装を確認
+5. **統合テスト**: 実際にコードを実行してエラーハンドリングを検証
+6. **ドキュメント更新**: 修正内容をコメントや文書に反映
+
+## 7. 🛠️ 推奨ツール
+
+- **ESLint**: JavaScript の静的解析
+- **Prettier**: コード整形
+- **HTMLHint**: HTML の品質チェック
+- **Stylelint**: CSS の品質チェック
+- **Code Spell Checker**: スペルチェック
+
+このガイドラインに従ってコードレビューを実施することで、品質と保守性の高いコードベースを維持できます。

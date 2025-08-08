@@ -1,0 +1,277 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  font-size: 16px;
+}
+
+/* ヘッダースタイル */
+header {
+  background-color: #4a90e2;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  display: block;
+}
+
+nav a:hover {
+  opacity: 0.8;
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* メインコンテンツ */
+main {
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+main h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+main > p {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+/* カードコンテナ */
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* カードスタイル */
+.card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4a90e2, #50c8a3);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* タブレット向け */
+@media (min-width: 576px) {
+  nav ul {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  main {
+    margin: 2rem auto;
+  }
+  
+  main h1 {
+    font-size: 2.2rem;
+  }
+  
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    padding: 2rem;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+  }
+  
+  .card p {
+    font-size: 1rem;
+  }
+}
+
+/* デスクトップ向け */
+@media (min-width: 768px) {
+  header {
+    padding: 1.5rem;
+  }
+  
+  nav ul {
+    gap: 2rem;
+  }
+  
+  main h1 {
+    font-size: 2.5rem;
+  }
+  
+  main > p {
+    font-size: 1.1rem;
+  }
+  
+  .cards-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+
+/* 大画面向け */
+@media (min-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* 特別な配置：5つのカードを美しく配置 */
+  .card:nth-child(1) {
+    grid-column: 1 / 3;
+  }
+  
+  .card:nth-child(2) {
+    grid-column: 3 / 5;
+  }
+  
+  .card:nth-child(3) {
+    grid-column: 1 / 2;
+  }
+  
+  .card:nth-child(4) {
+    grid-column: 2 / 4;
+  }
+  
+  .card:nth-child(5) {
+    grid-column: 4 / 5;
+  }
+  
+  main h1 {
+    font-size: 3rem;
+  }
+}
+
+/* 最新アニメーション用の追加スタイル */
+.card {
+  transform-style: preserve-3d;
+  will-change: transform, background-color, border-radius;
+  border-style: solid;
+  border-color: #e0e0e0;
+}
+
+/* モダンな通知システム */
+.modern-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.notification-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  min-width: 200px;
+}
+
+.notification-icon {
+  font-size: 1.2rem;
+}
+
+.notification-text {
+  font-size: 0.9rem;
+}
+
+/* ナビゲーションのアニメーション対応 */
+nav a {
+  will-change: transform;
+  transform-origin: center;
+}
+
+/* パフォーマンス最適化 */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  nav a,
+  .modern-notification {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* 高DPI対応 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+}

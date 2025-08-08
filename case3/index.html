@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インタラクティブカードページ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#about">について</a></li>
+                <li><a href="#services">サービス</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>インタラクティブカード</h1>
+        <p>下のカードをクリックして色を変えてみましょう！</p>
+        
+        <div class="cards-container">
+            <div class="card">
+                <h2>カード 1</h2>
+                <p>これは最初のカードです。クリックすると色が変わります。</p>
+            </div>
+
+            <div class="card">
+                <h2>カード 2</h2>
+                <p>これは二つ目のカードです。JavaScriptによってインタラクティブになります。</p>
+            </div>
+
+            <div class="card">
+                <h2>カード 3</h2>
+                <p>これは三つ目のカードです。ホバー効果とクリック効果の両方があります。</p>
+            </div>
+
+            <div class="card">
+                <h2>カード 4</h2>
+                <p>これは四つ目のカードです。クリック数がコンソールに表示されます。</p>
+            </div>
+
+            <div class="card">
+                <h2>カード 5</h2>
+                <p>これは五つ目のカードです。ランダムな色に変化します。</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Aninest アニメーションライブラリ -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/aninest@latest/dist/index.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

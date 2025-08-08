@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレミアム Hello World</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cursor" id="customCursor"></div>
+    
+    <main class="container">
+        <header class="header">
+            <h1 class="main-title" id="mainTitle" aria-label="Hello World メインタイトル">
+                <span class="title-text" id="titleText"></span>
+                <span class="cursor-blink" id="typingCursor">|</span>
+            </h1>
+        </header>
+        
+        <section class="content">
+            <p class="sub-text" id="subText" aria-label="多言語挨拶テキスト">
+                Welcome to the future
+            </p>
+            
+            <div class="interaction-hint" id="interactionHint">
+                <span class="hint-text">クリックして花火を楽しもう ✨</span>
+                <div class="pulse-ring"></div>
+            </div>
+        </section>
+    </main>
+    
+    <div class="particles-container" id="particlesContainer" aria-hidden="true"></div>
+    
+    <canvas id="backgroundCanvas" aria-hidden="true"></canvas>
+    
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+/* CSS変数の定義 */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #f59e0b;
+    --gradient-start: #667eea;
+    --gradient-end: #764ba2;
+    --text-glow: #00ffff;
+    --particle-color: #ffd700;
+    --font-primary: 'Orbitron', 'Noto Sans JP', sans-serif;
+    --font-secondary: 'Noto Sans JP', sans-serif;
+}
+
+/* リセット & ベース設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: var(--font-secondary);
+    height: 100vh;
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease-in-out infinite;
+    cursor: none;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 動的グラデーション背景 */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+        background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+    }
+    25% {
+        background-position: 100% 50%;
+        background: linear-gradient(45deg, #764ba2, #f093fb, #f5576c, #4facfe);
+    }
+    50% {
+        background-position: 100% 0%;
+        background: linear-gradient(45deg, #f093fb, #f5576c, #4facfe, #00f2fe);
+    }
+    75% {
+        background-position: 0% 0%;
+        background: linear-gradient(45deg, #f5576c, #4facfe, #00f2fe, #667eea);
+    }
+    100% {
+        background-position: 0% 50%;
+        background: linear-gradient(45deg, #4facfe, #00f2fe, #667eea, #764ba2);
+    }
+}
+
+/* カスタムカーソル */
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-glow);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 20px var(--text-glow);
+}
+
+.cursor.active {
+    transform: scale(2);
+    border-color: var(--particle-color);
+    box-shadow: 0 0 30px var(--particle-color);
+}
+
+/* メインコンテナ */
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* ヘッダー */
+.header {
+    margin-bottom: 2rem;
+}
+
+/* メインタイトル */
+.main-title {
+    font-family: var(--font-primary);
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 
+        0 0 10px var(--text-glow),
+        0 0 20px var(--text-glow),
+        0 0 40px var(--text-glow),
+        0 0 80px var(--text-glow);
+    transform: perspective(1000px) rotateX(10deg);
+    transition: all 0.3s ease;
+    letter-spacing: 0.1em;
+}
+
+.main-title:hover {
+    transform: perspective(1000px) rotateX(0deg) scale(1.05);
+    text-shadow: 
+        0 0 15px var(--text-glow),
+        0 0 30px var(--text-glow),
+        0 0 60px var(--text-glow),
+        0 0 120px var(--text-glow);
+}
+
+/* タイピングカーソル */
+.cursor-blink {
+    animation: blink 1s infinite;
+    color: var(--text-glow);
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* コンテンツセクション */
+.content {
+    position: relative;
+}
+
+/* サブテキスト */
+.sub-text {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s ease 2s both;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* インタラクションヒント */
+.interaction-hint {
+    position: relative;
+    display: inline-block;
+    animation: fadeInUp 1s ease 3s both;
+}
+
+.hint-text {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: var(--particle-color);
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* パルスリング */
+.pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border: 3px solid var(--particle-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* パーティクルコンテナ */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--particle-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--particle-color);
+    animation: particleMove 2s ease-out forwards;
+}
+
+@keyframes particleMove {
+    0% {
+        transform: scale(0) rotate(0deg) translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(360deg) translate(var(--end-x, 100px), var(--end-y, 100px));
+        opacity: 0;
+    }
+}
+
+/* 背景キャンバス */
+#backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: clamp(2rem, 6vw, 5rem);
+        margin-bottom: 1rem;
+    }
+    
+    .sub-text {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+        margin-bottom: 2rem;
+    }
+    
+    .hint-text {
+        font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    }
+    
+    .pulse-ring {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: clamp(1.5rem, 5vw, 3rem);
+        letter-spacing: 0.05em;
+    }
+    
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .main-title:hover {
+        transform: none;
+    }
+}
+
+/* フォーカス時のアクセシビリティ */
+.main-title:focus,
+.sub-text:focus,
+.hint-text:focus {
+    outline: 3px solid var(--text-glow);
+    outline-offset: 5px;
+}
+
+/* ローディング状態 */
+.loading .main-title {
+    opacity: 0;
+}
+
+.loading .sub-text {
+    opacity: 0;
+}
+
+.loading .interaction-hint {
+    opacity: 0;
+}

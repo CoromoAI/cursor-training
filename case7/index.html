@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEasy - ECサイト</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header__title">ShopEasy</h1>
+            <nav class="header__nav">
+                <button class="header__cart-btn" aria-label="カートを開く">
+                    <span class="header__cart-icon">🛒</span>
+                    <span class="header__cart-count" id="cart-count">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h2 class="hero__title">おすすめ商品</h2>
+                <p class="hero__description">厳選された商品をお得な価格でお届けします</p>
+            </section>
+
+            <section class="products" aria-label="商品一覧">
+                <div class="products__grid" id="products-grid">
+                    <!-- 商品カードがJavaScriptによって動的に生成されます -->
+                </div>
+                <div class="loading" id="loading">
+                    <p>商品を読み込み中...</p>
+                </div>
+                <div class="error" id="error" style="display: none;">
+                    <p>商品の読み込みに失敗しました。</p>
+                    <button class="error__retry-btn" onclick="loadProducts()">再試行</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__copyright">&copy; 2024 ShopEasy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- カートモーダル -->
+    <div class="cart-modal" id="cart-modal" style="display: none;">
+        <div class="cart-modal__overlay"></div>
+        <div class="cart-modal__content">
+            <div class="cart-modal__header">
+                <h3 class="cart-modal__title">ショッピングカート</h3>
+                <button class="cart-modal__close-btn" aria-label="カートを閉じる">&times;</button>
+            </div>
+            <div class="cart-modal__body" id="cart-items">
+                <!-- カート内アイテムが表示されます -->
+            </div>
+            <div class="cart-modal__footer">
+                <div class="cart-modal__total">
+                    <span>合計: ¥<span id="cart-total">0</span></span>
+                </div>
+                <button class="cart-modal__checkout-btn">レジへ進む</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
